@@ -1,13 +1,22 @@
 package com.example.ApiFilmes.entities;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "tb_filmes")
 public class Filmes implements Serializable {
     private static final long SerialVersionUID = 1L;
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull @NotBlank
     private String nome;
+    @NotNull @NotBlank
     private String descricao;
     private String genero;
     private String diretor;
