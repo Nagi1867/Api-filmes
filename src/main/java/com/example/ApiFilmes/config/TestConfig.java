@@ -2,6 +2,7 @@ package com.example.ApiFilmes.config;
 
 import com.example.ApiFilmes.entities.Diretor;
 import com.example.ApiFilmes.entities.Filmes;
+import com.example.ApiFilmes.enums.FilmeStatus;
 import com.example.ApiFilmes.repositories.DiretorRepository;
 import com.example.ApiFilmes.repositories.FilmeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class TestConfig implements CommandLineRunner {
 
         diretorRepository.save(diretor1);
 
-        Filmes filme1 = new Filmes(null, "O gato de botas", "Um gato de botas", "Aventura, Fantasia", diretor1, false);
-        Filmes filme2 = new Filmes(null, "Rapunzel", "A mina do cabelo longo", "Romance, Fantasia", diretor1, false);
+        Filmes filme1 = new Filmes(null, "O gato de botas", "Um gato de botas", "Aventura, Fantasia", diretor1, FilmeStatus.ASSISTIDO);
+        Filmes filme2 = new Filmes(null, "Rapunzel", "A mina do cabelo longo", "Romance, Fantasia", diretor1, FilmeStatus.NAO_ASSISTIDO);
 
         filmeRepository.saveAll(Arrays.asList(filme1, filme2));
     }

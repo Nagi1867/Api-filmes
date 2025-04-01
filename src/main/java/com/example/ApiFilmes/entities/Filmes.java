@@ -1,5 +1,6 @@
 package com.example.ApiFilmes.entities;
 
+import com.example.ApiFilmes.enums.FilmeStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,17 +23,17 @@ public class Filmes implements Serializable {
     @ManyToOne
     @JoinColumn(name = "diretor_id")
     private Diretor diretor;
-    private Boolean status;
+    private Integer status;
 
     public Filmes() {}
 
-    public Filmes(Long id, String nome, String descricao, String genero, Diretor diretor, Boolean status) {
+    public Filmes(Long id, String nome, String descricao, String genero, Diretor diretor, FilmeStatus status) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.genero = genero;
         this.diretor = diretor;
-        this.status = status;
+        setStatus(status);
     }
 
     public Long getId() {
@@ -75,12 +76,14 @@ public class Filmes implements Serializable {
         this.diretor = diretor;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public FilmeStatus getStatus() {
+        return FilmeStatus.valueOf(status);
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setStatus(FilmeStatus status) {
+        if (status != null) {
+            this.status = status.getCode();
+        }
     }
 
     @Override
