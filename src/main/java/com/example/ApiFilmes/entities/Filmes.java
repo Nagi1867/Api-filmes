@@ -19,12 +19,14 @@ public class Filmes implements Serializable {
     @NotNull @NotBlank
     private String descricao;
     private String genero;
-    private String diretor;
+    @ManyToOne
+    @JoinColumn(name = "diretor_id")
+    private Diretor diretor;
     private Boolean status;
 
     public Filmes() {}
 
-    public Filmes(Long id, String nome, String descricao, String genero, String diretor, Boolean status) {
+    public Filmes(Long id, String nome, String descricao, String genero, Diretor diretor, Boolean status) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -65,11 +67,11 @@ public class Filmes implements Serializable {
         this.genero = genero;
     }
 
-    public String getDiretor() {
+    public Diretor getDiretor() {
         return diretor;
     }
 
-    public void setDiretor(String diretor) {
+    public void setDiretor(Diretor diretor) {
         this.diretor = diretor;
     }
 
