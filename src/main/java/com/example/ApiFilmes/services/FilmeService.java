@@ -2,6 +2,7 @@ package com.example.ApiFilmes.services;
 
 import com.example.ApiFilmes.entities.Filmes;
 import com.example.ApiFilmes.repositories.FilmeRepository;
+import com.example.ApiFilmes.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class FilmeService {
 
     public Filmes findById(Long id) {
         Optional<Filmes> obj = repository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Filmes insert(Filmes obj) {
