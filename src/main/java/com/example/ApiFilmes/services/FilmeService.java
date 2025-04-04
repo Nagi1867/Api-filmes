@@ -25,4 +25,8 @@ public class FilmeService {
     public Filmes insert(Filmes obj) {
         return repository.save(obj);
     }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }
