@@ -1,11 +1,14 @@
 package com.example.ApiFilmes.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_genero")
@@ -18,6 +21,10 @@ public class Genero implements Serializable {
 
     @NotNull @NotBlank
     private String nome;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "generos")
+    private Set<Filmes> filmes = new HashSet<>();
 
     public Genero() {}
 
@@ -40,6 +47,14 @@ public class Genero implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Filmes> getFilmes() {
+        return filmes;
+    }
+
+    public void setFilmes(Set<Filmes> filmes) {
+        this.filmes = filmes;
     }
 
     @Override

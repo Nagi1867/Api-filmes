@@ -38,9 +38,15 @@ public class TestConfig implements CommandLineRunner {
 
         generoRepository.saveAll(Arrays.asList(genero1, genero2, genero3));
 
-        Filmes filme1 = new Filmes(null, "O gato de botas", "Um gato de botas", "Aventura, Fantasia", diretor1, FilmeStatus.ASSISTIDO);
-        Filmes filme2 = new Filmes(null, "Rapunzel", "A mina do cabelo longo", "Romance, Fantasia", diretor1, FilmeStatus.NAO_ASSISTIDO);
+        Filmes filme1 = new Filmes(null, "O gato de botas", "Um gato de botas",  diretor1, FilmeStatus.ASSISTIDO);
+        Filmes filme2 = new Filmes(null, "Rapunzel", "A mina do cabelo longo", diretor1, FilmeStatus.NAO_ASSISTIDO);
 
         filmeRepository.saveAll(Arrays.asList(filme1, filme2));
+
+        filme1.getGeneros().addAll(Arrays.asList(genero1, genero2));
+        filme2.getGeneros().addAll(Arrays.asList(genero2, genero3));
+
+        filmeRepository.saveAll(Arrays.asList(filme1, filme2));
+
     }
 }

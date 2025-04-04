@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_filmes")
@@ -19,7 +21,12 @@ public class Filmes implements Serializable {
     private String nome;
     @NotNull @NotBlank
     private String descricao;
-    private String genero;
+
+    @ManyToMany
+    @JoinTable(name = "tb_filme_genero",
+            joinColumns = @JoinColumn(name = "filme_id"),
+    inverseJoinColumns = @JoinColumn(name = "genero_id"))
+    private Set<Genero> generos = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "diretor_id")
     private Diretor diretor;
@@ -27,11 +34,10 @@ public class Filmes implements Serializable {
 
     public Filmes() {}
 
-    public Filmes(Long id, String nome, String descricao, String genero, Diretor diretor, FilmeStatus status) {
+    public Filmes(Long id, String nome, String descricao, Diretor diretor, FilmeStatus status) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.genero = genero;
         this.diretor = diretor;
         setStatus(status);
     }
@@ -60,12 +66,12 @@ public class Filmes implements Serializable {
         this.descricao = descricao;
     }
 
-    public String getGenero() {
-        return genero;
+    public Set<Genero> getGeneros() {
+        return generos;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
+    public void setGeneros(Set<Genero> generos) {
+        this.generos = generos;
     }
 
     public Diretor getDiretor() {

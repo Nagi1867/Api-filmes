@@ -24,7 +24,7 @@ public class GeneroResource {
         return ResponseEntity.ok().body(list);
     }
 
-    @GetMapping
+    @GetMapping(value = "/{id}")
     public ResponseEntity<Genero> findById(@PathVariable Long id) {
         Genero obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
