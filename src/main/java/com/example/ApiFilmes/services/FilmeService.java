@@ -29,4 +29,20 @@ public class FilmeService {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    public Filmes update(Long id, Filmes obj) {
+        Filmes entity = repository.getReferenceById(id);
+        updateData(entity, obj);
+        return repository.save(entity);
+    }
+
+    private void updateData(Filmes entity, Filmes obj) {
+        entity.setNome(obj.getNome());
+        entity.setDescricao(obj.getDescricao());
+        entity.setGeneros(obj.getGeneros());
+        entity.setDiretor(obj.getDiretor());
+        entity.setStatus(obj.getStatus());
+    }
+
+
 }
