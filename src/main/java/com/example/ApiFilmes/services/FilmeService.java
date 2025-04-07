@@ -4,6 +4,7 @@ import com.example.ApiFilmes.entities.Filmes;
 import com.example.ApiFilmes.repositories.FilmeRepository;
 import com.example.ApiFilmes.services.exceptions.DatabaseException;
 import com.example.ApiFilmes.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -43,9 +44,14 @@ public class FilmeService {
     }
 
     public Filmes update(Long id, Filmes obj) {
-        Filmes entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            Filmes entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Filmes entity, Filmes obj) {
